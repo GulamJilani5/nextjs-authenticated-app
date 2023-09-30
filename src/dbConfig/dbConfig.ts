@@ -8,7 +8,7 @@ import mongoose from "mongoose";
 // console.log('connection string', process.env.MONGOOSE_URL_NEXT)
 export async function connectDb(){
     try {
-        
+        // ** WE SHOULD USE EXCLAMATION(!) MARK BECAUSE WE ARE USING TYPESCRIPT
         // mongoose.connect(MONGOOSE_URL_NEXT!);
         mongoose.connect(process.env.MONGOOSE_URL_NEXT!);
         const connection = mongoose.connection;
