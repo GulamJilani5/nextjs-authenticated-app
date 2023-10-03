@@ -1,5 +1,4 @@
-import {connectDb} from "@/dbConfig/dbConfig";
-
+import {connect} from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
 // const User = require("@/models/userModel");
 import { NextRequest, NextResponse } from "next/server";
@@ -7,7 +6,7 @@ import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 
-connectDb();
+connect();
 
 export async function POST(request : NextRequest) {
     try {
@@ -22,7 +21,7 @@ export async function POST(request : NextRequest) {
     // const options = { maxTimeMS: 20000 }; // Set timeout to 20 seconds
       // const user = await User.findOne({email}, null, options); // If we don't use await then this will return query. Here it will return document(record) based on email id.
       const user = await User.findOne({email}); // If we don't use await then this will return query. Here it will return document(record) based on email id.
-      console.log('login user... ',user)  //
+      console.log('login user... ', user)  //
       if(!user){
         return NextResponse.json({
             error: 'User does not exist',

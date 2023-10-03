@@ -9,26 +9,26 @@ import toast from "react-hot-toast";
 
 export default function signupPage(){
   const router = useRouter();
-      const[user, setUser] = useState({
+      const[userInfo, setUserInfo] = useState({
         email:"",
         password:"",
         username:""
       });
-const[buttonDisabled, setButtonDisabled] =useState(false);
+const[buttonDisabled, setButtonDisabled] = useState(false);
 const[loading, setLoading] = useState(false)
 
     const onSignup = async () => {
       try {
         // console.log("inside sighnup");
         setLoading(true);
-        const response = await axios.post("/api/users/signup", user);
+        const response = await axios.post("/api/users/signup", userInfo);
         console.log("sighnup success...", response.data);
 
         // redirect to the login page
         router.push("/login")
 
       } catch (err : any) {
-        console.log("Signup failed...", err.message)
+        console.log("Signup failed.....", err)
         toast.error(err.message)
       }finally{
         setLoading(false)
@@ -36,23 +36,23 @@ const[loading, setLoading] = useState(false)
 
     }
     useEffect(()=>{
-       if(user.email.length > 0 && user.username.length > 0 &&user.password.length > 0){
+       if(userInfo.email.length > 0 && userInfo.username.length > 0 &&userInfo.password.length > 0){
         setButtonDisabled(false)
        }  
        else{
         setButtonDisabled(true)
       }
-    },[user])
+    },[userInfo])
     return(
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
             <h1>{loading ? "Processing" : "Signup"}</h1>
             <br />
             <label htmlFor="username">Username</label>
-            <input className="p-2 border border-gray-300 focus-border-gray-900 rounded-lg mb-4 focus:outline-none text-black" type="text" id="username" value={user.username} onChange={(e)=>{setUser({...user, username: e.target.value})}} placeholder="username"/>
+            <input className="p-2 border border-gray-300 focus-border-gray-900 rounded-lg mb-4 focus:outline-none text-black" type="text" id="username" value={userInfo.username} onChange={(e)=>{setUserInfo({...userInfo, username: e.target.value})}} placeholder="username"/>
             <label htmlFor="username">email</label>
-            <input className="p-2 border border-gray-300 focus-border-gray-900 rounded-lg mb-4 focus:outline-none text-black" type="text" id="email" value={user.email} onChange={(e)=>{setUser({...user, email: e.target.value})}} placeholder="email"/>
+            <input className="p-2 border border-gray-300 focus-border-gray-900 rounded-lg mb-4 focus:outline-none text-black" type="text" id="email" value={userInfo.email} onChange={(e)=>{setUserInfo({...userInfo, email: e.target.value})}} placeholder="email"/>
             <label htmlFor="username">password</label>
-            <input className="p-2 border border-gray-300 focus-border-gray-900 rounded-lg mb-4 focus:outline-none text-black" type="password" id="password" value={user.password} onChange={(e)=>{setUser({...user, password: e.target.value})}} placeholder="password"/>
+            <input className="p-2 border border-gray-300 focus-border-gray-900 rounded-lg mb-4 focus:outline-none text-black" type="password" id="password" value={userInfo.password} onChange={(e)=>{setUserInfo({...userInfo, password: e.target.value})}} placeholder="password"/>
            <button disabled={buttonDisabled} onClick={onSignup} className="p-2 border border-gray-300 focus-border-gray-900 rounded-lg mb-4 focus:outline-none">{buttonDisabled ? "No sighnup" : "Signup"}</button>
            <Link href="/login">Visit login page</Link>
         </div>
