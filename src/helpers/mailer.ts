@@ -32,7 +32,7 @@ export async function sendEmail({email, emailType, userId}:any){
     port: 2525,
     auth: {
       user: "2824d81aaa8b0b",
-      pass: "e8febf6ff78fbc"
+      pass: "<Password>"
       // TODO add these credentialsto .env file
     }
   });
